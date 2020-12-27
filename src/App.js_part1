@@ -1,0 +1,86 @@
+import logo from './logo.svg';
+import './App.css';
+
+
+function SecretComponent(){
+  return (
+    <h1> Secret information for authorized users only </h1>
+  );
+}
+function RegularComponents(){
+  return(
+    <h1> Regular information for all users </h1>
+  );
+}
+
+
+//now define one header components
+function Header(props){
+  console.log(props);
+  return (
+    <h1>{props.name}'s Kitchen</h1>
+  );
+}
+
+
+function Main(props){
+  return (
+    <section>
+    <p> we serve the most {props.adjective} food around </p>
+    <img src={logo} height="200" alt="hello"></img>
+    <ul style={{textAlign:"left"}}>
+    {props.dishes.map((dish)=> (<li key={dish.id}>{dish.title}</li>))}
+    </ul>
+    </section>
+  )
+}
+
+
+function Footer(props){
+  return(
+    <footer>
+    <p>Copyright @{props.year} </p>
+    </footer>
+  );
+
+}
+
+
+const dishes=[
+  "Macroni",
+  "Salmon",
+  "Tofu",
+  "Minestrone"
+];
+
+const dishObjects=dishes.map((dish,i)=> ({id:i,title:dish}));
+function App(props) {
+/**  if(props.authorized){
+    return (<SecretComponent/>);
+  }
+  else{
+    return (
+      <div className="App">
+        <Header name="Harsh"/>
+        <Main adjective="Amazing" dishes={dishObjects}/>
+        <Footer year={new Date().getFullYear()}/>
+      </div>
+    );
+}**/
+return (
+<>
+{props.authorized ? <SecretComponent /> : <RegularComponents/>}
+</>
+);
+}
+
+
+//array destructing is another way to write cleaner code
+
+const [mandatoryItems]=["boot","tent","headlamp"];
+console.log(mandatoryItems);
+
+export default App;
+
+
+//components will have functions and it will return the jsx elements
